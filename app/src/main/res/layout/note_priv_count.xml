@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="10dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewForNote"
+        android:backgroundTint="@color/black_200"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="10dp"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/relative"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/noteDate"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="02-04-2020"
+                android:textColor="@color/white"
+                android:layout_gravity="right"/>
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:id="@+id/noteTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Note Title"
+                android:textColor="@color/white"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/priv_noteContent"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/noteTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Eben"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_marginTop="30dp"
+                android:layout_gravity="bottom|right"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/cardViewForImg"
+                app:cardCornerRadius="15dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/photo"
+                    android:scaleType="centerCrop"/>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>
