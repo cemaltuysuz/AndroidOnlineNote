@@ -20,14 +20,27 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/noteDate"
-                android:textSize="12sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="02-04-2020"
-                android:textColor="@color/white"
-                android:layout_gravity="right"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_del"
+                    android:id="@+id/deleteNote"/>
+
+                <TextView
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/noteDate"
+                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="02-04-2020"
+                    android:textColor="@color/white" />
+
+            </RelativeLayout>
+
 
             <TextView
                 android:layout_marginTop="10dp"

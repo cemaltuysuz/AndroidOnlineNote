@@ -1,6 +1,7 @@
 package com.thic.mynotesjava;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,19 +24,22 @@ public class MainActivity extends AppCompatActivity{
 
     // Define Variable
     private RecyclerView mainRecyclerView;
+    private SearchView searchView;
     private FloatingActionButton fab;
     private MainAdapter adapter;
-    Intent fabIntent;
-    Intent clickIntent;
+    private Intent intent;
+    private NetworkHelper networkHelper = new NetworkHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        NetworkHelper.getData();
+        networkHelper.getData();
+        intent = new Intent(getApplicationContext(),noteActivity.class);
 
         // Initialize Variable
         mainRecyclerView = findViewById(R.id.mainRecyclerView);
+        searchView       = findViewById(R.id.searchView);
         fab = findViewById(R.id.mainFabIcon);
 
         //RecyclerView Settings
@@ -46,11 +50,22 @@ public class MainActivity extends AppCompatActivity{
         MainViewModel.notes.observe(this, new Observer<List<Notlar>>() {
             @Override
             public void onChanged(List<Notlar> notlars) {
-                if (notlars.size()>0){
                     Collections.reverse(notlars);
                     adapter = new MainAdapter(getApplicationContext(),notlars);
                     mainRecyclerView.setAdapter(adapter);
-                }
+            }
+        });
+        // SearchView Action
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                networkHelper.searchData(newText);
+                return true;
             }
         });
 
@@ -58,21 +73,28 @@ public class MainActivity extends AppCompatActivity{
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fabIntent = new Intent(getApplicationContext(),noteActivity.class);
-                fabIntent.putExtra("isEmpty",true);
-                startActivity(fabIntent);
+                intent.putExtra("isEmpty",true);
+                startActivity(intent);
             }
         });
 
+         // Note Click Info
         MainViewModel.clickInfo.observe(this, new Observer<Notlar>() {
             @Override
             public void onChanged(Notlar notlar) {
             Bundle bundle = new Bundle();
-            clickIntent = new Intent(getApplicationContext(),noteActivity.class);
+            intent = new Intent(getApplicationContext(),noteActivity.class);
             sendData(notlar,bundle);
-            clickIntent.putExtra("data",bundle);
-            clickIntent.putExtra("isEmpty",false);
-            startActivity(clickIntent);
+            intent.putExtra("data",bundle);
+            intent.putExtra("isEmpty",false);
+            startActivity(intent);
+            }
+        });
+
+        MainViewModel.delInfo.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                adapter.delItem(integer);
             }
         });
     }

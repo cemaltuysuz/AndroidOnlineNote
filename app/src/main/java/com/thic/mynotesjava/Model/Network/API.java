@@ -32,9 +32,16 @@ public interface API {
     Call<NoteModel>noteUpdate (@Field("noteId")          String noteId,
                                @Field("noteTitle")       String noteTitle,
                                @Field("noteContent")     String noteContent,
-                               @Field("noteDate")        String noteDate,
                                @Field("noteFontType")    String noteFontType,
                                @Field("noteTextColor")   String noteTextColor,
                                @Field("noteBackColor")   String noteBackColor);
+
+    @POST("services/delete.php")
+    @FormUrlEncoded
+    Call<NoteModel>noteDelete (@Field("NoteId")          String noteId);
+
+    @POST("services/search.php")
+    @FormUrlEncoded
+    Call<NoteModel>noteSearch (@Field("note")          String word);
 
 }

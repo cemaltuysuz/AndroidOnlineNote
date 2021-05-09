@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -28,12 +29,13 @@ public class noteActivity extends AppCompatActivity {
     private boolean isOld;
     private ProgressBar noteProgress;
     public static int noteID;
+    private NetworkHelper networkHelper = new NetworkHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
-
+        isOld = false;
         // Initialize Variable
         noteDate = findViewById(R.id.currentDate);
         done = findViewById(R.id.noteDone);
@@ -41,14 +43,12 @@ public class noteActivity extends AppCompatActivity {
         noteContent = findViewById(R.id.EditNoteContent);
         noteProgress = findViewById(R.id.noteProgressBar);
 
+        note = new Notlar();
         // isEmpty ?
         if (!getIntent().getBooleanExtra("isEmpty",true)){
             isOld = true;
-            Bundle data = getIntent().getExtras().getBundle("data");
-            noteID = Integer.parseInt(data.getString("noteID"));
-            noteTitle.setText(data.getString("noteTitle"));
-            noteContent.setText(data.getString("noteContent"));
-            noteDate.setText(data.getString("noteDate"));
+            setData();
+            setNote();
         }else{
             isOld = false;
             noteDate.setText(current_date());
@@ -63,10 +63,20 @@ public class noteActivity extends AppCompatActivity {
                         noteProgress.setVisibility(View.VISIBLE);
                         note = new Notlar(noteTitle.getText().toString(),noteContent.getText().toString(),
                                 current_date(),"1","1","1");
-                        NetworkHelper.insertData(note);
+                        networkHelper.insertData(note);
+                        Log.d("Insert :","isExecute");
                     }
                 }else {
-
+                    if (!noteContent.getText().toString().isEmpty()){
+                        if (!noteTitle.getText().toString().equals(note.getNoteTitle()) ||
+                                !noteContent.getText().toString().equals(note.getNoteContent())){
+                            noteProgress.setVisibility(View.VISIBLE);
+                            note = new Notlar(noteTitle.getText().toString(),noteContent.getText().toString(),
+                                    current_date(),"1","1","1");
+                            networkHelper.updateData(note);
+                            Log.d("Update :","isExecute");
+                        }
+                    }
                 }
             }
         });
@@ -81,8 +91,9 @@ public class noteActivity extends AppCompatActivity {
                         break;
                     case 1:
                         isOld = true;
-                        NetworkHelper.getData();
+                        networkHelper.getData();
                         Toast.makeText(getApplicationContext(),String.valueOf(noteID),Toast.LENGTH_SHORT).show();
+                        break;
                     default:
                         Toast.makeText(getApplicationContext(),"Unknow Eror",Toast.LENGTH_SHORT).show();
                         break;
@@ -90,7 +101,19 @@ public class noteActivity extends AppCompatActivity {
                 noteProgress.setVisibility(View.GONE);
             }
         });
+    }
 
+    private void setNote() {
+        Bundle data = getIntent().getExtras().getBundle("data");
+        note.setNoteTitle(data.getString("noteID"));
+        note.setNoteContent(data.getString("noteContent"));
+        noteID = Integer.parseInt(data.getString("noteID"));
+    }
+
+    private void setData() {
+        Bundle data = getIntent().getExtras().getBundle("data");
+        noteTitle.setText(data.getString("noteTitle"));
+        noteContent.setText(data.getString("noteContent"));
     }
 
     // Current Date

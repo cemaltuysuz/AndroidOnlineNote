@@ -10,4 +10,5 @@ import java.util.List;
 public class MainViewModel extends ViewModel {
    public static MutableLiveData<List<Notlar>> notes  = new MutableLiveData<>();
    public static MutableLiveData<Notlar> clickInfo    = new MutableLiveData<>();
+   public static MutableLiveData<Integer> delInfo      = new MutableLiveData<>();
 }

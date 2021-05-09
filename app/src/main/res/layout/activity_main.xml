@@ -29,7 +29,9 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.SearchView
-            app:queryHint="sfgsfg"
+            android:contextClickable="true"
+            app:closeIcon="@drawable/ic_close"
+            app:queryHint="Search"
             app:searchIcon="@drawable/ic_search"
             android:background="@color/black_200"
             android:id="@+id/searchView"

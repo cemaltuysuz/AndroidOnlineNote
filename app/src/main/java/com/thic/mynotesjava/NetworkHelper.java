@@ -18,14 +18,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class NetworkHelper {
-    public static API api = ApiUtils.api();
+    public  API api = ApiUtils.api();
 
-    public static void getData(){
+    // All Notes
+    public  void getData(){
         api.getData().enqueue(new Callback<NoteModel>() {
             @Override
             public void onResponse(Call<NoteModel> call, Response<NoteModel> response) {
-                MainViewModel.notes.setValue(response.body().getNotlar());
-                Log.d("Succesfullyyy","Boyut :" +response.body().getNotlar().size() );
+                if (response.body().getSuccess()>0){
+                    MainViewModel.notes.setValue(response.body().getNotlar());
+                }
             }
 
             @Override
@@ -35,7 +37,8 @@ public class NetworkHelper {
         });
     }
 
-    public static void insertData(Notlar note){
+    // Insert notes
+    public  void insertData(Notlar note){
         api.noteInsert(note.getNoteTitle(),note.getNoteContent(),note.getNoteDate()
                 ,note.getNoteFontType(),note.getNoteTextColor(),note.getNoteBackColor())
                 .enqueue(new Callback<NoteModel>() {
@@ -48,6 +51,58 @@ public class NetworkHelper {
             public void onFailure(Call<NoteModel> call, Throwable t) {
                 NoteActivityViewModel.isSucces.setValue(0);
                 Log.d("fail response : ", t.getMessage());
+            }
+        });
+    }
+
+    // Update Notes
+    public  void updateData(Notlar note){
+        api.noteUpdate(String.valueOf(noteActivity.noteID),note.getNoteTitle(),note.getNoteContent()
+                ,note.getNoteFontType(),note.getNoteTextColor(),note.getNoteBackColor())
+                .enqueue(new Callback<NoteModel>() {
+                    @Override
+                    public void onResponse(Call<NoteModel> call, Response<NoteModel> response) {
+                        NoteActivityViewModel.isSucces.setValue(response.body().getSuccess());
+                    }
+                    @Override
+                    public void onFailure(Call<NoteModel> call, Throwable t) {
+                        NoteActivityViewModel.isSucces.setValue(0);
+                        Log.d("fail response : ", t.getMessage());
+                    }
+                });
+    }
+    public void deleteData (String noteID){
+        api.noteDelete(noteID).enqueue(new Callback<NoteModel>() {
+            @Override
+            public void onResponse(Call<NoteModel> call, Response<NoteModel> response) {
+                if (response.body().getSuccess()>0){
+                    MainViewModel.delInfo.setValue(Integer.parseInt(noteID));
+                }
+                Log.d("success",response.body().getSuccess().toString());
+            }
+
+            @Override
+            public void onFailure(Call<NoteModel> call, Throwable t) {
+            Log.d("failll",t.getMessage());
+            }
+        });
+    }
+
+    public void searchData (String word){
+        api.noteDelete(word).enqueue(new Callback<NoteModel>() {
+            @Override
+            public void onResponse(Call<NoteModel> call, Response<NoteModel> response) {
+                if (response.body().getSuccess()>0){
+                    if (response.body().getNotlar().size()>0){
+                        MainViewModel.notes.setValue(response.body().getNotlar());
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NoteModel> call, Throwable t) {
+                Log.d("failll",t.getMessage());
             }
         });
     }

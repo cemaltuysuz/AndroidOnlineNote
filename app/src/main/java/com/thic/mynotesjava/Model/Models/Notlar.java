@@ -18,6 +18,8 @@ public class Notlar implements Serializable {
         this.noteTextColor = noteTextColor;
         this.noteBackColor = noteBackColor;
     }
+    public Notlar() {
+    }
 
     @SerializedName("NoteId")
     @Expose
