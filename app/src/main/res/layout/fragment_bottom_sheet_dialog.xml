@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".UI.bottomSheetDialog"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@color/black_500">
+
+    <View
+        android:layout_gravity="center"
+        android:background="@drawable/radio_normal"
+        android:layout_width="100dp"
+        android:layout_height="10dp"/>
+
+    <androidx.cardview.widget.CardView
+        android:backgroundTint="@color/black_200"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp">
+
+        <TextView
+            android:gravity="center"
+            android:id="@+id/lorem"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:padding="10dp"
+            android:textSize="30sp"
+            android:text="My Note"
+            android:layout_width="150dp"
+            android:layout_height="60dp"/>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:textColor="@color/white"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Text Style"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+    <HorizontalScrollView
+        android:scrollbars="none"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+    <RadioGroup
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/TextStyleGroup"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:button="@android:color/transparent"
+            android:id="@+id/roboto"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:background="@drawable/bottom_sheet_selector"
+            android:layout_marginRight="5dp"
+            android:text="@string/Font1"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton
+            android:button="@android:color/transparent"
+            android:id="@+id/ptsans"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:background="@drawable/bottom_sheet_selector"
+            android:layout_marginRight="5dp"
+            android:text="@string/Font2"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton
+            android:button="@android:color/transparent"
+            android:id="@+id/josefinsans"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:background="@drawable/bottom_sheet_selector"
+            android:layout_marginRight="5dp"
+            android:text="@string/Font3"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton
+            android:button="@android:color/transparent"
+            android:id="@+id/bebasneue"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:background="@drawable/bottom_sheet_selector"
+            android:layout_marginRight="5dp"
+            android:text="@string/Font4"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"/>
+
+    </RadioGroup>
+
+</HorizontalScrollView>
+
+    <TextView
+        android:textColor="@color/white"
+        android:layout_marginTop="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Text Color"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+    <HorizontalScrollView
+        android:id="@+id/ads"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <RadioGroup
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/TextColorGroup"
+            android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/lightBlue"
+            android:backgroundTint="@color/blue_200"
+            android:button="@android:color/transparent"
+            android:gravity="center"
+            android:background="@drawable/bottom_sheet_selector"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/lightBlack"
+            android:button="@android:color/transparent"
+            android:gravity="center"
+            android:background="@drawable/bottom_sheet_selector"
+            android:layout_marginLeft="10dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"/>
+
+        <RadioButton
+            android:id="@+id/white"
+            android:backgroundTint="@color/white"
+            android:button="@android:color/transparent"
+            android:gravity="center"
+            android:background="@drawable/bottom_sheet_selector"
+            android:layout_marginLeft="10dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"/>
+
+        <RadioButton
+            android:id="@+id/lightPurple"
+            android:backgroundTint="@color/purple_200"
+            android:button="@android:color/transparent"
+            android:gravity="center"
+            android:background="@drawable/bottom_sheet_selector"
+            android:layout_marginLeft="10dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"/>
+
+        </RadioGroup>
+
+    </HorizontalScrollView>
+
+    <TextView
+        android:textColor="@color/white"
+        android:layout_marginTop="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Background Color"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <RadioGroup
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/BackColorGroup"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/BackBlue"
+                android:backgroundTint="@color/blue_200"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:background="@drawable/bottom_sheet_selector"
+                android:layout_width="50dp"
+                android:layout_height="50dp">
+
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/backBlack"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:background="@drawable/bottom_sheet_selector"
+                android:layout_marginLeft="10dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
+
+            <RadioButton
+                android:id="@+id/backWhite"
+                android:backgroundTint="@color/white"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:background="@drawable/bottom_sheet_selector"
+                android:layout_marginLeft="10dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
+
+            <RadioButton
+                android:id="@+id/backPurple"
+                android:backgroundTint="@color/purple_200"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:background="@drawable/bottom_sheet_selector"
+                android:layout_marginLeft="10dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
+
+        </RadioGroup>
+
+    </HorizontalScrollView>
+
+
+
+</LinearLayout>

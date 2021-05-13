@@ -1,4 +1,4 @@
-package com.thic.mynotesjava.Model.Network;
+package com.thic.mynotesjava.Retrofit;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

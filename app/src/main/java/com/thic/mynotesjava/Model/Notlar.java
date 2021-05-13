@@ -1,7 +1,5 @@
 
-package com.thic.mynotesjava.Model.Models;
-
-import android.os.Parcelable;
+package com.thic.mynotesjava.Model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -10,13 +8,15 @@ import java.io.Serializable;
 
 public class Notlar implements Serializable {
 
-    public Notlar(String noteTitle, String noteContent, String noteDate, String noteFontType, String noteTextColor, String noteBackColor) {
+    public Notlar(String noteTitle, String noteContent, String noteDate, String noteFontType, String noteTextColor, String noteBackColor,String ImgStat,String ImgUrl) {
         this.noteTitle = noteTitle;
         this.noteContent = noteContent;
         this.noteDate = noteDate;
         this.noteFontType = noteFontType;
         this.noteTextColor = noteTextColor;
         this.noteBackColor = noteBackColor;
+        this.ImgStat = ImgStat;
+        this.ImgUrl = ImgUrl;
     }
     public Notlar() {
     }
@@ -42,6 +42,28 @@ public class Notlar implements Serializable {
     @SerializedName("NoteBackColor")
     @Expose
     private String noteBackColor;
+    @SerializedName("imgStat")
+    @Expose
+    private String ImgStat;
+    @SerializedName("ImageUrl")
+    @Expose
+    private String ImgUrl;
+
+    public String getImgUrl() {
+        return ImgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        ImgUrl = imgUrl;
+    }
+
+    public String getImgStat() {
+        return ImgStat;
+    }
+
+    public void setImgStat(String imgStat) {
+        ImgStat = imgStat;
+    }
 
     public String getNoteId() {
         return noteId;

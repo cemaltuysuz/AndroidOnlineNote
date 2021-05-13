@@ -1,5 +1,5 @@
 
-package com.thic.mynotesjava.Model.Models;
+package com.thic.mynotesjava.Model;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

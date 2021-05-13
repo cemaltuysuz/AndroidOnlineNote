@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MyNotesJava</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Font1">Roboto</string>
+    <string name="Font2">PtSans</string>
+    <string name="Font3">JosefinSans</string>
+    <string name="Font4">Bebas Neue</string>
 </resources>

@@ -1,16 +1,11 @@
-package com.thic.mynotesjava.Model.Network;
+package com.thic.mynotesjava.Retrofit;
 
-import com.thic.mynotesjava.Model.Models.NoteModel;
-import com.thic.mynotesjava.Model.Models.Notlar;
+import com.thic.mynotesjava.Model.NoteModel;
 
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface API {
@@ -25,7 +20,9 @@ public interface API {
                                @Field("noteDate")        String noteDate,
                                @Field("noteFontType")    String noteFontType,
                                @Field("noteTextColor")   String noteTextColor,
-                               @Field("noteBackColor")   String noteBackColor);
+                               @Field("noteBackColor")   String noteBackColor,
+                               @Field("noteImgStat")     String noteImgStat,
+                               @Field("image")           String encodedImg);
 
     @POST("services/update.php")
     @FormUrlEncoded
@@ -34,7 +31,9 @@ public interface API {
                                @Field("noteContent")     String noteContent,
                                @Field("noteFontType")    String noteFontType,
                                @Field("noteTextColor")   String noteTextColor,
-                               @Field("noteBackColor")   String noteBackColor);
+                               @Field("noteBackColor")   String noteBackColor,
+                               @Field("noteImgStat")     String noteImgStat,
+                               @Field("image")           String encodedImg);
 
     @POST("services/delete.php")
     @FormUrlEncoded

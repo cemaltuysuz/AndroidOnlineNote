@@ -1,4 +1,4 @@
-package com.thic.mynotesjava.Model.Adapter;
+package com.thic.mynotesjava.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,13 +8,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.Observer;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.thic.mynotesjava.Model.Models.Notlar;
-import com.thic.mynotesjava.NetworkHelper;
+import com.bumptech.glide.Glide;
+import com.thic.mynotesjava.ImageHelper;
+import com.thic.mynotesjava.Model.Notlar;
 import com.thic.mynotesjava.R;
-import com.thic.mynotesjava.ViewModel.MainViewModel;
+import com.thic.mynotesjava.RecyclerViewOnClick;
 
 import java.util.List;
 
@@ -22,18 +23,18 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
 
     private Context context;
     private List<Notlar> notelist;
-    private NetworkHelper networkHelper = new NetworkHelper();
+    private RecyclerViewOnClick itemOnClick;
 
-    public MainAdapter(Context context, List<Notlar> notelist) {
+    public MainAdapter(Context context,RecyclerViewOnClick itemOnClick) {
         this.context  = context;
-        this.notelist = notelist;
+        this.itemOnClick = itemOnClick;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_priv_count,parent,false);
-        return new MyViewHolder(view);
+        return new MyViewHolder(view,itemOnClick);
     }
 
     @Override
@@ -42,21 +43,21 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
         holder.noteTitle.setText(notelist.get(position).getNoteTitle());
         holder.noteContent.setText(notelist.get(position).getNoteContent());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainViewModel.clickInfo.setValue(notelist.get(position));
-            }
-        });
+        if (Integer.parseInt(notelist.get(position).getImgStat())==1){
+            ImageHelper.forView(context,holder.noteImage, notelist.get(position).getImgUrl());
+        }else {
+            holder.cardView.setVisibility(View.GONE);
+        }
 
         holder.noteDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                networkHelper.deleteData(notelist.get(position).getNoteId());
+                if (notelist.size()!=1) itemOnClick.deleteClick(Integer.parseInt(notelist.get(position).getNoteId()));
+                else itemOnClick.deleteClick(Integer.parseInt(notelist.get(0).getNoteId()));
             }
         });
     }
-    public void notify(List<Notlar> notifyList){
+    public void setNotelist(List<Notlar> notifyList){
         this.notelist = notifyList;
         notifyDataSetChanged();
     }
@@ -75,15 +76,26 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
         return notelist.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView noteTitle,noteContent,noteDate;
-        ImageView noteDel;
-        public MyViewHolder(@NonNull View itemView) {
+        ImageView noteDel,noteImage;
+        CardView cardView;
+        RecyclerViewOnClick recyclerViewOnClick;
+        public MyViewHolder(@NonNull View itemView,RecyclerViewOnClick onClick) {
             super(itemView);
+            this.recyclerViewOnClick = onClick;
             noteTitle   = itemView.findViewById(R.id.noteTitle);
             noteContent = itemView.findViewById(R.id.priv_noteContent);
             noteDate    = itemView.findViewById(R.id.noteDate);
             noteDel     = itemView.findViewById(R.id.deleteNote);
+            noteImage   = itemView.findViewById(R.id.noteImage);
+            cardView    = itemView.findViewById(R.id.cardViewForImg);
+            itemView.setOnClickListener(this::onClick);
+        }
+
+        @Override
+        public void onClick(View v) {
+            recyclerViewOnClick.itemOnClick(notelist.get(getAdapterPosition()));
         }
     }
 }
