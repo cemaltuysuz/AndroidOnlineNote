@@ -2,6 +2,13 @@ package com.thic.mynotesjava.Model.PaletteModels;
 
 public class BackColorModel {
 
+    /**
+     * @author cemaltuysuz
+     * @version 1.0
+     *
+     * This class for Custom Note Background Color Instance and Mysql database
+     * */
+
     private int BackColorCode;
     private String BackColorName;
     private int color;

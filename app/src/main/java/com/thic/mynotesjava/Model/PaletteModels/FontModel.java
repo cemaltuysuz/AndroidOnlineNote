@@ -4,6 +4,13 @@ import android.graphics.Typeface;
 
 public class FontModel {
 
+    /**
+     * @author cemaltuysuz
+     * @version 1.0
+     *
+     * This class for Custom Font Type Instance and Mysql database
+     * */
+
     private int fontCode;
     private String fontName;
     private Typeface fontType;

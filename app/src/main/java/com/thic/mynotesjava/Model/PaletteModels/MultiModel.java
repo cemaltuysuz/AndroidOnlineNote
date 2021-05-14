@@ -4,6 +4,15 @@ import java.util.List;
 
 public class MultiModel {
 
+    /**
+     * @author cemaltuysuz
+     * @version 1.0
+     * @see com.thic.mynotesjava.Adapter.PaletteAdapters.VerticalAdapter
+     * @see com.thic.mynotesjava.Adapter.PaletteAdapters.HorizontalAdapter
+     *
+     *   This class for RecyclerView
+     * */
+
     private String title;
     private List<Object> items;
 

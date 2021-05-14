@@ -4,74 +4,68 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.thic.mynotesjava.FontClick;
-import com.thic.mynotesjava.Model.PaletteModels.FontModel;
+import com.thic.mynotesjava.Model.PaletteModels.ChooseState;
+import com.thic.mynotesjava.Model.PaletteModels.MultiModel;
 import com.thic.mynotesjava.R;
+import com.thic.mynotesjava.UI.bottomSheetDialog;
 
 import java.util.List;
 
 public class VerticalAdapter extends RecyclerView.Adapter<VerticalAdapter.ViewHolder> {
 
-    private Context context;
-    private List<FontModel> fontModelList;
-    private int choose;
-    private FontClick fontClick;
+    /**
+     * @author cemaltuysuz
+     * @version 1.0
+     * @see bottomSheetDialog
+     * This class for Vertical RecyclerView
+     * */
 
-    public VerticalAdapter(Context context, List<FontModel> fontModelList, FontClick click) {
+    private Context context;
+    private List<MultiModel> multiModelList;
+    private ChooseState state;
+
+    public VerticalAdapter(Context context, List<MultiModel> fontModelList) {
         this.context = context;
-        this.fontModelList = fontModelList;
-        this.fontClick = click;
+        this.multiModelList = fontModelList;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.font_type_container,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.priv_vertical_layout,parent,false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        FontModel current = fontModelList.get(position);
+       holder.title.setText(multiModelList.get(position).getTitle());
 
-        if (choose == current.getFontCode()) holder.done.setVisibility(View.VISIBLE);
-        else holder.done.setVisibility(View.GONE);
+        HorizontalAdapter adapter = new HorizontalAdapter(context,multiModelList.get(position).getItems());
+        holder.horizontalRec.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
+        holder.horizontalRec.setHasFixedSize(true);
+        holder.horizontalRec.setAdapter(adapter);
 
-        holder.font.setText(current.getFontName());
-        holder.font.setTypeface(current.getFontType());
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fontClick.itemClick(current.getFontCode());
-            }
-        });
-    }
-
-    public void notifySelect (int choose){
-        this.choose = choose;
-        notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return fontModelList.size();
+        return multiModelList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView done;
-        TextView font;
+        RecyclerView horizontalRec;
+        TextView title;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            done = itemView.findViewById(R.id.font_done);
-            font = itemView.findViewById(R.id.fontType);
+            horizontalRec = itemView.findViewById(R.id.horizontalRecycler);
+            title         = itemView.findViewById(R.id.selectTitle);
         }
     }
 }

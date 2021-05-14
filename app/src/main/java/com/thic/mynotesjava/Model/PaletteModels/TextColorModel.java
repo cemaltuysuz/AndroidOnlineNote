@@ -2,6 +2,13 @@ package com.thic.mynotesjava.Model.PaletteModels;
 
 public class TextColorModel {
 
+    /**
+     * @author cemaltuysuz
+     * @version 1.0
+     *
+     * This class for Custom TextColor Type Instance and Mysql database
+     * */
+
     private int TextColorCode;
     private String TextColorName;
     private int color;
