@@ -43,6 +43,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
         holder.noteTitle.setText(notelist.get(position).getNoteTitle());
         holder.noteContent.setText(notelist.get(position).getNoteContent());
 
+        
+
         if (Integer.parseInt(notelist.get(position).getImgStat())==1){
             ImageHelper.forView(context,holder.noteImage, notelist.get(position).getImgUrl());
         }else {

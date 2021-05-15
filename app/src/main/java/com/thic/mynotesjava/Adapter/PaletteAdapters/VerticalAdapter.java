@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.thic.mynotesjava.Model.PaletteModels.ChooseState;
 import com.thic.mynotesjava.Model.PaletteModels.MultiModel;
+import com.thic.mynotesjava.PaletteClicks;
 import com.thic.mynotesjava.R;
 import com.thic.mynotesjava.UI.bottomSheetDialog;
 
@@ -28,11 +29,15 @@ public class VerticalAdapter extends RecyclerView.Adapter<VerticalAdapter.ViewHo
 
     private Context context;
     private List<MultiModel> multiModelList;
+    private PaletteClicks clicks;
+    private HorizontalAdapter adapter;
     private ChooseState state;
 
-    public VerticalAdapter(Context context, List<MultiModel> fontModelList) {
+    public VerticalAdapter(Context context, List<MultiModel> fontModelList,ChooseState state ,PaletteClicks paletteClicks) {
         this.context = context;
         this.multiModelList = fontModelList;
+        this.clicks = paletteClicks;
+        this.state =state;
     }
 
     @NonNull
@@ -45,13 +50,23 @@ public class VerticalAdapter extends RecyclerView.Adapter<VerticalAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+        // Set Category Title
        holder.title.setText(multiModelList.get(position).getTitle());
 
-        HorizontalAdapter adapter = new HorizontalAdapter(context,multiModelList.get(position).getItems());
+       // Create Horizontal Adapter and set Horizontal RecyclerView
+        adapter = new HorizontalAdapter(context,multiModelList.get(position).getItems(),clicks);
+
+        /**
+         * This method (changeData) , Horizontal Adapter sends the current Material selection.
+         * @see ChooseState
+         * In this adapter gets this ChooseState from the bottomSheetDialog
+         * @see bottomSheetDialog
+         * */
+
+        adapter.changeData(state);
         holder.horizontalRec.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
         holder.horizontalRec.setHasFixedSize(true);
         holder.horizontalRec.setAdapter(adapter);
-
     }
 
     @Override

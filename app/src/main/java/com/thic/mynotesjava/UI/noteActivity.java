@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -13,12 +14,14 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.thic.mynotesjava.ImageHelper;
 import com.thic.mynotesjava.Model.NoteModel;
 import com.thic.mynotesjava.Model.Notlar;
+import com.thic.mynotesjava.Model.PaletteModels.ChooseState;
 import com.thic.mynotesjava.R;
 import com.thic.mynotesjava.Retrofit.API;
 import com.thic.mynotesjava.Retrofit.ApiUtils;
@@ -33,7 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class noteActivity extends AppCompatActivity {
+public class noteActivity extends AppCompatActivity implements bottomSheetDialog.materialListener {
 
     // Define Variable
     private EditText noteTitle,noteContent;
@@ -41,6 +44,7 @@ public class noteActivity extends AppCompatActivity {
     private TextView noteDate;
     private ProgressBar noteProgress;
     private bottomSheetDialog bottomSheet;
+    private RelativeLayout background;
 
     private Notlar note;
     private Intent intent;
@@ -49,7 +53,6 @@ public class noteActivity extends AppCompatActivity {
     private boolean isOld,img,imgIsUpdate,materialIsUpdate;
     private String currentBs64;
     private API api = ApiUtils.api();
-
     Bundle data;
 
     @Override
@@ -60,14 +63,6 @@ public class noteActivity extends AppCompatActivity {
 
         // Initialize Variable
         Initialize();
-
-        /**
-        *  If user clicked palette button, open bottomSheet.
-        * @author cemaltuysuz
-        * @see bottomSheetDialog
-        * @version 1.0
-        * */
-        notePalette.setOnClickListener(v -> bottomSheet.show(getSupportFragmentManager(),"example"));
 
         /**
          ** Check Bundle is empty or full ? If Bundle is full, this not is already created. (Bundle comes from MainActivity )
@@ -83,7 +78,19 @@ public class noteActivity extends AppCompatActivity {
         }else{
             isOld = false;
             noteDate.setText(current_date());
+            note.setNoteBackColor("1");
+            note.setNoteFontType("1");
+            note.setNoteTextColor("1");
         }
+
+        /**
+        *  If user clicked palette button, open bottomSheet.
+        * @author cemaltuysuz
+        * @see bottomSheetDialog
+        * @version 1.0
+        * */
+
+        notePalette.setOnClickListener(v -> bottomSheet.show(getSupportFragmentManager(),"example"));
 
         /**
          * If user click to save button, this onClick execute.
@@ -172,12 +179,10 @@ public class noteActivity extends AppCompatActivity {
         intent = new Intent(getApplicationContext(), MainActivity.class);
         data = getIntent().getExtras().getBundle("data");
         bottomSheet = new bottomSheetDialog();
+        background = findViewById(R.id.noteBackGround);
 
         isOld = false;
         note = new Notlar();
-        note.setNoteBackColor("1");
-        note.setNoteFontType("1");
-        note.setNoteTextColor("1");
     }
 
     /**
@@ -193,6 +198,8 @@ public class noteActivity extends AppCompatActivity {
         note.setNoteBackColor(data.getString("noteBackColor"));
         note.setImgStat(data.getString("noteImageStat"));
         note.setImgUrl(data.getString("noteImageUrl"));
+        bottomSheet = new bottomSheetDialog(new ChooseState(Integer.valueOf(note.getNoteFontType())
+                ,Integer.valueOf(note.getNoteTextColor()),Integer.valueOf(note.getNoteBackColor())));
     }
     /**
      * If this note already created, this activity's UI views set Data
@@ -201,6 +208,8 @@ public class noteActivity extends AppCompatActivity {
         noteTitle.setText(note.getNoteTitle());
         noteContent.setText(note.getNoteContent());
         noteDate.setText(note.getNoteDate());
+
+
 
         if (data.get("noteImageStat").equals("1")){
             img = true;
@@ -248,7 +257,6 @@ public class noteActivity extends AppCompatActivity {
             }catch (IOException ex){
             ex.printStackTrace();
             }
-            Toast.makeText(getApplicationContext(),"tamam tamam seçtin su anda",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -289,7 +297,6 @@ public class noteActivity extends AppCompatActivity {
 
     // Note update method
     private  void updateData(Notlar note){
-
         api.noteUpdate(note.getNoteId(),note.getNoteTitle(),note.getNoteContent()
                 ,note.getNoteFontType(),note.getNoteTextColor(),note.getNoteBackColor(),note.getImgStat(),note.getImgUrl())
                 .enqueue(new Callback<NoteModel>() {
@@ -312,5 +319,29 @@ public class noteActivity extends AppCompatActivity {
                         noteProgress.setVisibility(View.GONE);
                     }
                 });
+    }
+
+    // FontType picked in bottomSheet
+    @Override
+    public void fontType(int position, Typeface typeFace) {
+        Toast.makeText(getApplicationContext(),"activity",Toast.LENGTH_SHORT).show();
+        note.setNoteFontType(String.valueOf(position));
+        noteTitle.setTypeface(typeFace);
+        noteContent.setTypeface(typeFace);
+    }
+    // TextColor picked in bottomSheet
+    @Override
+    public void textColor(int position, int color) {
+        note.setNoteTextColor(String.valueOf(position));
+        noteTitle.setTextColor(color);
+        noteTitle.setHintTextColor(color);
+        noteContent.setTextColor(color);
+        noteContent.setHintTextColor(color);
+    }
+    // BackgroundColor picked in bottomSheet
+    @Override
+    public void backgroundColor(int position, int color) {
+        note.setNoteTextColor(String.valueOf(position));
+        background.setBackgroundColor(color);
     }
 }

@@ -16,7 +16,8 @@
         android:layout_height="10dp"/>
 
     <androidx.cardview.widget.CardView
-        android:backgroundTint="@color/black_200"
+        app:cardBackgroundColor="@color/white"
+        android:id="@+id/loremCard"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:layout_width="200dp"
@@ -27,7 +28,7 @@
             android:gravity="center"
             android:id="@+id/lorem"
             android:layout_gravity="center"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:padding="10dp"
             android:textSize="30sp"
             android:text="My Note"
