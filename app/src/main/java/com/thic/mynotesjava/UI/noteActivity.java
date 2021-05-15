@@ -324,7 +324,6 @@ public class noteActivity extends AppCompatActivity implements bottomSheetDialog
     // FontType picked in bottomSheet
     @Override
     public void fontType(int position, Typeface typeFace) {
-        Toast.makeText(getApplicationContext(),"activity",Toast.LENGTH_SHORT).show();
         note.setNoteFontType(String.valueOf(position));
         noteTitle.setTypeface(typeFace);
         noteContent.setTypeface(typeFace);
@@ -341,7 +340,7 @@ public class noteActivity extends AppCompatActivity implements bottomSheetDialog
     // BackgroundColor picked in bottomSheet
     @Override
     public void backgroundColor(int position, int color) {
-        note.setNoteTextColor(String.valueOf(position));
+        note.setNoteBackColor(String.valueOf(position));
         background.setBackgroundColor(color);
     }
 }

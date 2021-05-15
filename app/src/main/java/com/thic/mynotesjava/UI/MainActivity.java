@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewOnCli
         //RecyclerView Settings
         mainRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
         mainRecyclerView.setHasFixedSize(true);
-        adapter = new MainAdapter(getApplicationContext(),this);
+        adapter = new MainAdapter(getApplicationContext(),this,viewModel.getMultiModelList());
         intent = new Intent(getApplicationContext(), noteActivity.class);
     }
 

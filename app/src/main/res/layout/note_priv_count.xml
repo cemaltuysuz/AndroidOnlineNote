@@ -7,7 +7,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewForNote"
-        android:backgroundTint="@color/black_200"
+        app:cardBackgroundColor="@color/black_200"
         android:layout_margin="10dp"
         app:cardCornerRadius="10dp"
         android:layout_width="160dp"

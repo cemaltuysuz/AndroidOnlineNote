@@ -10,39 +10,28 @@ import androidx.lifecycle.ViewModel;
 
 import com.thic.Repository.NotesRepository;
 import com.thic.mynotesjava.Model.Notlar;
+import com.thic.mynotesjava.Model.PaletteModels.MultiModel;
 
 import java.util.List;
 
 public class MainViewModel extends AndroidViewModel{
    //Note List
    private NotesRepository repository;
+   private List<MultiModel> multiModelList;
    private  LiveData<List<Notlar>> notes;
 
    public MainViewModel(@NonNull Application application) {
       super(application);
-      repository = new NotesRepository();
+      repository = new NotesRepository(application);
       this.notes = repository.getNotes();
+      this.multiModelList = repository.getMultiModelList();
 
    }
 
    public LiveData<List<Notlar>> getNotes() {
       return notes;
    }
-
-   /*
-   public MutableLiveData<List<Notlar>> getNotes() {
-      return notes;
+   public List<MultiModel> getMultiModelList() {
+      return multiModelList;
    }
-
-   public void setNotes(List<Notlar> notes) {
-      this.notes.setValue(notes);
-   } */
-   /**
-    *
-    *  Repository sınıfı oluşturup buradaki viewmodeli repositry sınıfı ile bağladım , burada bulunan MutableliveData'yı LiveDataya çevirdim.
-    *  set ve get Fonksiyonlarını yorum satırına aldım liveData için yeniden set ve get oluşturuyorum.
-    *
-    * */
-
-
 }
