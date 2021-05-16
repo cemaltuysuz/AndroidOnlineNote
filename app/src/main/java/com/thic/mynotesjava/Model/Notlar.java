@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Notlar implements Serializable {
+public class Notlar   {
 
     public Notlar(String noteTitle, String noteContent, String noteDate, String noteFontType, String noteTextColor, String noteBackColor,String ImgStat,String ImgUrl) {
         this.noteTitle = noteTitle;

@@ -3,19 +3,19 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="6dp">
+    android:padding="@dimen/priv_note_page_padding">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewForNote"
         app:cardBackgroundColor="@color/black_200"
-        android:layout_margin="10dp"
-        app:cardCornerRadius="10dp"
+        android:layout_margin="@dimen/priv_note_cardView_margin"
+        app:cardCornerRadius="@dimen/def_view_radius"
         android:layout_width="160dp"
         android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/relative"
-            android:padding="15dp"
+            android:padding="@dimen/priv_note_LinearLayout_padding"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -25,18 +25,19 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="@dimen/priv_note_ImageView_size"
+                    android:layout_height="@dimen/priv_note_ImageView_size"
                     android:src="@drawable/ic_del"
-                    android:id="@+id/deleteNote"/>
+                    android:id="@+id/deleteNote"
+                    android:contentDescription="@string/NoteDel" />
 
                 <TextView
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:id="@+id/noteDate"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/priv_note_noteDate_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="02-04-2020"
+                    android:text="@string/note_date"
                     android:textColor="@color/white" />
 
             </RelativeLayout>
@@ -47,34 +48,34 @@
                 android:id="@+id/noteTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Note Title"
+                android:text="@string/note_title"
                 android:textColor="@color/white"
-                android:textSize="20sp"/>
+                android:textSize="@dimen/priv_note_noteTitle_size"/>
 
             <TextView
                 android:id="@+id/priv_noteContent"
                 android:layout_marginTop="10dp"
-                android:layout_below="@id/noteTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Eben"
+                android:text="@string/note_content"
                 android:textColor="@color/white"
-                android:textSize="16sp"/>
+                android:textSize="@dimen/priv_note_noteContent_size"/>
 
             <androidx.cardview.widget.CardView
-                android:layout_marginTop="30dp"
-                android:layout_gravity="bottom|right"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_marginTop="@dimen/priv_note_cardView2_marginTop"
+                android:layout_gravity="end"
+                android:layout_width="@dimen/priv_note_cardView2_size"
+                android:layout_height="@dimen/priv_note_cardView2_size"
                 android:id="@+id/cardViewForImg"
-                app:cardCornerRadius="15dp">
+                app:cardCornerRadius="@dimen/def_view_radius">
 
                 <ImageView
                     android:id="@+id/noteImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/photo"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="centerCrop"
+                    android:contentDescription="@string/note_image" />
 
             </androidx.cardview.widget.CardView>
 

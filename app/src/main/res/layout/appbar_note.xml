@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="?attr/actionBarSize">
+
+    <RelativeLayout
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <LinearLayout
+            android:id="@+id/doneContainer"
+            android:layout_marginEnd="@dimen/button_margin"
+            android:gravity="center"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/noteDone"
+                android:layout_width="@dimen/button_size"
+                android:layout_height="@dimen/button_size"
+                android:src="@drawable/ic_done"
+                android:contentDescription="@string/note_send" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/button_margin"
+            android:layout_toStartOf="@+id/doneContainer"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/notePalette"
+                android:layout_width="@dimen/button_size"
+                android:layout_height="@dimen/button_size"
+                android:src="@drawable/ic_palette"
+                android:contentDescription="@string/note_palette" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_alignParentStart="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/noteBack"
+                android:layout_width="@dimen/button_size"
+                android:layout_height="@dimen/button_size"
+                android:src="@drawable/ic_back"
+                android:contentDescription="@string/note_back" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.appcompat.widget.Toolbar>

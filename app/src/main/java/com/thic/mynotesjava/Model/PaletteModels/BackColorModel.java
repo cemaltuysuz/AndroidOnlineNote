@@ -5,7 +5,7 @@ public class BackColorModel {
     /**
      * @author cemaltuysuz
      * @version 1.0
-     *
+     * -- See NotesRepository --
      * This class for Custom Note Background Color Instance and Mysql database
      * */
 

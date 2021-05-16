@@ -1,9 +1,32 @@
 <resources>
     <string name="app_name">MyNotesJava</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Font Names -->
     <string name="Font1">Roboto</string>
     <string name="Font2">PtSans</string>
     <string name="Font3">JosefinSans</string>
     <string name="Font4">Bebas Neue</string>
+
+    <!-- View Texts -->
+
+    <string name="Nothing">You have no notes :(</string>
+    <string name="fabDesc">Add Note</string>
+    <string name="noteAddDesc">Add Image</string>
+    <string name="note_title">Note Title</string>
+    <string name="note_date">Note Date</string>
+    <string name="note_content">Note Content</string>
+    <string name="note_send">Note Send</string>
+    <string name="note_palette">Note Palette</string>
+    <string name="note_back">Note Back</string>
+    <string name="palette_lorem">My Note</string>
+    <string name="NoteDel">Note Delete</string>
+    <string name="note_image">Note Image</string>
+    <string name="font_picked">Font Picked</string>
+    <string name="fontType">Font Type</string>
+
+    <!-- Menu Item Titles -->
+    <string name="menuItemSearch">Search</string>
+    <string name="sameError">This note is same</string>
+    <string name="emptyError">This note is empty</string>
+
 </resources>

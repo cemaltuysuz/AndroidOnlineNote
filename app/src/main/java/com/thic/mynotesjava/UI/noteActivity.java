@@ -2,6 +2,7 @@ package com.thic.mynotesjava.UI;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -25,6 +26,7 @@ import com.thic.mynotesjava.Model.PaletteModels.ChooseState;
 import com.thic.mynotesjava.R;
 import com.thic.mynotesjava.Retrofit.API;
 import com.thic.mynotesjava.Retrofit.ApiUtils;
+import com.thic.mynotesjava.ViewModel.NoteActivityViewModel;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -40,12 +42,12 @@ public class noteActivity extends AppCompatActivity implements bottomSheetDialog
 
     // Define Variable
     private EditText noteTitle,noteContent;
-    private ImageView done,noteImg, notePalette;
+    private ImageView done,noteImg, notePalette,noteBack;
     private TextView noteDate;
     private ProgressBar noteProgress;
     private bottomSheetDialog bottomSheet;
-    private RelativeLayout background;
 
+    private NoteActivityViewModel viewModel;
     private Notlar note;
     private Intent intent;
     private Uri imageUri;
@@ -60,9 +62,7 @@ public class noteActivity extends AppCompatActivity implements bottomSheetDialog
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
 
-
-        // Initialize Variable
-        Initialize();
+        Initialize(); // Initialize Variable
 
         /**
          ** Check Bundle is empty or full ? If Bundle is full, this not is already created. (Bundle comes from MainActivity )
@@ -73,15 +73,20 @@ public class noteActivity extends AppCompatActivity implements bottomSheetDialog
 
         if (!getIntent().getBooleanExtra("isEmpty",true)){
             isOld = true;
+            // Create Note Instance with bundle's data
             createNote();
+            // UI views set data
             setNote();
         }else{
             isOld = false;
+            // if this note is new, currentDate SET
             noteDate.setText(current_date());
+            // Default options
             note.setNoteBackColor("1");
             note.setNoteFontType("1");
             note.setNoteTextColor("1");
         }
+
 
         /**
         *  If user clicked palette button, open bottomSheet.
@@ -90,8 +95,15 @@ public class noteActivity extends AppCompatActivity implements bottomSheetDialog
         * @version 1.0
         * */
 
-        notePalette.setOnClickListener(v -> bottomSheet.show(getSupportFragmentManager(),"example"));
+        notePalette.setOnClickListener(v -> bottomSheet.show(getSupportFragmentManager(),"toBottomSheet"));
 
+        // Back button clicked ->
+        noteBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backPress();
+            }
+        });
         /**
          * If user click to save button, this onClick execute.
          * @version 1.0
@@ -105,7 +117,7 @@ public class noteActivity extends AppCompatActivity implements bottomSheetDialog
                 String content,title;
                 content     = noteContent.getText().toString();
                 title       = noteTitle.getText().toString();
-                // has the note already been created or is it new
+                // Content is empty ?
                 if (!content.trim().isEmpty()){
                     // Check note is already created or new ?
                     if (isOld){
@@ -128,12 +140,13 @@ public class noteActivity extends AppCompatActivity implements bottomSheetDialog
                             * @author cemaltuysuz
                             * @version 1.0
                             * If image already exists but not updated -> Executed this Condition Structure
+                             * setImageUrl = null , because php services In this case, the php services will not update ImageUrl
                             * */
                             if (img) if (!imgIsUpdate) note.setImgUrl(null);
                             updateData(note);
                         }else {
                             // If this note same
-                            Toast.makeText(getApplicationContext(),"This note is same.",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),R.string.sameError,Toast.LENGTH_SHORT).show();
                             noteProgress.setVisibility(View.GONE);
                         }
                     }else{
@@ -152,14 +165,14 @@ public class noteActivity extends AppCompatActivity implements bottomSheetDialog
                         }
                         insertData(note);
                     }
-                }
+                }else {
+                    Toast.makeText(getApplicationContext(),R.string.emptyError,Toast.LENGTH_SHORT).show();
 
+                }
             }
         });
 
-        /**
-         * Open galery for select image method
-         * */
+        // This method works for the user to upload images
         noteImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,6 +184,7 @@ public class noteActivity extends AppCompatActivity implements bottomSheetDialog
     private void Initialize() {
         noteDate = findViewById(R.id.currentDate);
         done = findViewById(R.id.noteDone);
+        noteBack = findViewById(R.id.noteBack);
         noteImg = findViewById(R.id.noteImg);
         notePalette = findViewById(R.id.notePalette);
         noteTitle = findViewById(R.id.EditNoteTitle);
@@ -179,9 +193,6 @@ public class noteActivity extends AppCompatActivity implements bottomSheetDialog
         intent = new Intent(getApplicationContext(), MainActivity.class);
         data = getIntent().getExtras().getBundle("data");
         bottomSheet = new bottomSheetDialog();
-        background = findViewById(R.id.noteBackGround);
-
-        isOld = false;
         note = new Notlar();
     }
 
@@ -198,18 +209,18 @@ public class noteActivity extends AppCompatActivity implements bottomSheetDialog
         note.setNoteBackColor(data.getString("noteBackColor"));
         note.setImgStat(data.getString("noteImageStat"));
         note.setImgUrl(data.getString("noteImageUrl"));
+
+        // If this not is already exists , MaterialSettings send bottomSheet from constructor
         bottomSheet = new bottomSheetDialog(new ChooseState(Integer.valueOf(note.getNoteFontType())
                 ,Integer.valueOf(note.getNoteTextColor()),Integer.valueOf(note.getNoteBackColor())));
     }
     /**
-     * If this note already created, this activity's UI views set Data
+     * If this note already exists, MaterialSettings sends it from the constructor to the bottomSheet.
      * */
     private void setNote (){
         noteTitle.setText(note.getNoteTitle());
         noteContent.setText(note.getNoteContent());
         noteDate.setText(note.getNoteDate());
-
-
 
         if (data.get("noteImageStat").equals("1")){
             img = true;
@@ -224,15 +235,14 @@ public class noteActivity extends AppCompatActivity implements bottomSheetDialog
         return currentDateandTime;
     }
 
-    // If user clicked bacButton
+    // If user clicked bacButton , go to MainActivity
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        backPress();
     }
 
-    // Open Gallery Method
+    // Open Gallery
     private void openGallery(){
         Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
         chooseFile.setType("image/*");
@@ -280,18 +290,19 @@ public class noteActivity extends AppCompatActivity implements bottomSheetDialog
                     public void onResponse(Call<NoteModel> call, Response<NoteModel> response) {
                         if (response.body().getSuccess()==1){
                             // İnsert Success
-                            noteProgress.setVisibility(View.GONE);
                         }
                         else{
-                            Toast.makeText(getApplicationContext(),"Success is 0",Toast.LENGTH_SHORT).show();
-                            noteProgress.setVisibility(View.GONE);
+                            Toast.makeText(getApplicationContext(),"Success :"+response.body().getSuccess(),Toast.LENGTH_SHORT).show();
                         }
+                        noteProgress.setVisibility(View.GONE);
                     }
                     @Override
                     public void onFailure(Call<NoteModel> call, Throwable t) {
                         // Http Error
+                        Toast.makeText(getApplicationContext(),"Error :"+t.getMessage(),Toast.LENGTH_SHORT).show();
                         noteProgress.setVisibility(View.GONE);
                     }
+
                 });
     }
 
@@ -304,18 +315,19 @@ public class noteActivity extends AppCompatActivity implements bottomSheetDialog
                     public void onResponse(Call<NoteModel> call, Response<NoteModel> response) {
                         if (response.body().getSuccess()==1){
                             // Update Success
-                            noteProgress.setVisibility(View.GONE);
+                            // imgIsupdate = false, because user can change picture again.
                             imgIsUpdate = false;
                         }
                         else{
                             // Update Fail
-                            Toast.makeText(getApplicationContext(),"success : 0", Toast.LENGTH_SHORT).show();
-                            noteProgress.setVisibility(View.GONE);
+                            Toast.makeText(getApplicationContext(),"success :"+response.body().getSuccess(), Toast.LENGTH_SHORT).show();
                         }
+                        noteProgress.setVisibility(View.GONE);
                     }
                     @Override
                     public void onFailure(Call<NoteModel> call, Throwable t) {
                         // Http Error
+                        Toast.makeText(getApplicationContext(),"Error : "+t.getMessage(), Toast.LENGTH_SHORT).show();
                         noteProgress.setVisibility(View.GONE);
                     }
                 });
@@ -325,22 +337,23 @@ public class noteActivity extends AppCompatActivity implements bottomSheetDialog
     @Override
     public void fontType(int position, Typeface typeFace) {
         note.setNoteFontType(String.valueOf(position));
-        noteTitle.setTypeface(typeFace);
-        noteContent.setTypeface(typeFace);
+        if (!materialIsUpdate) materialIsUpdate = true;
     }
     // TextColor picked in bottomSheet
     @Override
     public void textColor(int position, int color) {
         note.setNoteTextColor(String.valueOf(position));
-        noteTitle.setTextColor(color);
-        noteTitle.setHintTextColor(color);
-        noteContent.setTextColor(color);
-        noteContent.setHintTextColor(color);
+        if (!materialIsUpdate) materialIsUpdate = true;
     }
     // BackgroundColor picked in bottomSheet
     @Override
     public void backgroundColor(int position, int color) {
         note.setNoteBackColor(String.valueOf(position));
-        background.setBackgroundColor(color);
+        if (!materialIsUpdate) materialIsUpdate = true;
+    }
+    // Backpress method
+    private void backPress(){
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

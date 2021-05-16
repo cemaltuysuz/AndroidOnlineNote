@@ -7,6 +7,13 @@ import com.google.gson.annotations.SerializedName;
 
 public class NoteModel {
 
+    /**
+     * This class for Retrofit2 callback
+     * @author cemaltuysuz
+     * @version 1.0
+     * @see com.thic.mynotesjava.Retrofit.API
+     * */
+
     @SerializedName("notlar")
     @Expose
     private List<Notlar> notlar = null;

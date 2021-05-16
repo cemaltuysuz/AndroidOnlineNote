@@ -7,19 +7,19 @@
 
     <TextView
         android:textColor="@color/white"
-        android:paddingLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="@dimen/priv_vertical_title_marginStart"
+        android:layout_marginTop="@dimen/priv_vertical_title_marginTop"
         android:textStyle="bold"
-        android:textSize="25sp"
+        android:textSize="@dimen/priv_vertical_title_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/selectTitle"
-        android:text="Category Title"/>
+        android:hint="@string/note_title"/>
 
     <androidx.recyclerview.widget.RecyclerView
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="horizontal"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/priv_vertical_recycler_marginTop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/horizontalRecycler"/>

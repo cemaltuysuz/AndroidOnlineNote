@@ -1,11 +1,13 @@
 package com.thic.mynotesjava.Model.PaletteModels;
 
+import com.thic.mynotesjava.UI.bottomSheetDialog;
+
 public class ChooseState {
 
     /**
      * @author cemaltuysuz
      * @version 1.0
-     *
+     * @see bottomSheetDialog
      * This class keeps the changes the user makes in the palette.
      * */
 

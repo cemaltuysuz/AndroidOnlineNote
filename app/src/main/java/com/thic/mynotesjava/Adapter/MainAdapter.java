@@ -28,9 +28,18 @@ import java.util.List;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> {
 
+    /**
+     * This adapter for MainActivity's Note Adapter.
+     * @see com.thic.mynotesjava.UI.MainActivity
+     * @author cemaltuysuz
+     * @version 1.0
+     *
+     * */
+
+    // Define Variable
     private Context context;
     private List<Notlar> notelist;
-    private RecyclerViewOnClick itemOnClick;
+    private RecyclerViewOnClick itemOnClick; // This interface for detect itemClick in RecyclerView
     private List<MultiModel> multiModelList;
 
     public MainAdapter(Context context, RecyclerViewOnClick itemOnClick, List<MultiModel> list) {
@@ -53,27 +62,31 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
         holder.noteTitle.setText(note.getNoteTitle());
         holder.noteContent.setText(note.getNoteContent());
 
+        // Note Material set (Font type,background color, text color)
         setMaterial(holder.noteTitle,holder.noteContent,holder.cardView2,multiModelList,note);
 
-        if (Integer.parseInt(notelist.get(position).getImgStat())==1){
+        // If this note has an image, CardView visibility -> VISIBLE
+        if (Integer.parseInt(notelist.get(position).getImgStat())==1)
             ImageHelper.forView(context,holder.noteImage, notelist.get(position).getImgUrl());
-        }else {
-            holder.cardView.setVisibility(View.GONE);
-        }
+
+        // If this note has not an image, CardView visibility -> GONE
+        else holder.cardView.setVisibility(View.GONE);
 
         holder.noteDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // When there is only one note left, the program fails, I solved the problem like this ->
                 if (notelist.size()!=1) itemOnClick.deleteClick(Integer.parseInt(notelist.get(position).getNoteId()));
                 else itemOnClick.deleteClick(Integer.parseInt(notelist.get(0).getNoteId()));
             }
         });
     }
+    // update adapter when searchview is running.
     public void setNotelist(List<Notlar> notifyList){
         this.notelist = notifyList;
         notifyDataSetChanged();
     }
-
+    // update adapter when deleted note
     public void delItem(int itemId){
         for (int i=0;i<notelist.size();i++){
             if (notelist.get(i).getNoteId().equals(String.valueOf(itemId))){
@@ -104,6 +117,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
             noteImage   = itemView.findViewById(R.id.noteImage);
             cardView    = itemView.findViewById(R.id.cardViewForImg);
             cardView2   = itemView.findViewById(R.id.cardViewForNote);
+            // detect itemClick with this interface and onClickMethod
             itemView.setOnClickListener(this::onClick);
         }
 
@@ -133,7 +147,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
                     BackColorModel bm = (BackColorModel) o;
                     if (Integer.parseInt(note.getNoteBackColor()) == bm.getBackColorCode()){
                         cardView.setCardBackgroundColor(bm.getColor());
-                        Log.d("Bildirge",note.getNoteTitle()+" isimli notun backgroud'u :"+bm.getBackColorCode());
                     }
                 }
             }

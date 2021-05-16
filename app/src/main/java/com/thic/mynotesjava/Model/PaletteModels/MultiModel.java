@@ -10,7 +10,6 @@ public class MultiModel {
      * @see com.thic.mynotesjava.Adapter.PaletteAdapters.VerticalAdapter
      * @see com.thic.mynotesjava.Adapter.PaletteAdapters.HorizontalAdapter
      *
-     *   This class for RecyclerView
      * */
 
     private String title;

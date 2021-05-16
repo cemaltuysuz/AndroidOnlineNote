@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!-- Default / Global -->
+    <dimen name="def_view_radius">10dp</dimen>
+
+    <!-- Main Activity -->
+    <dimen name="float_action_button_margin">25dp</dimen>
+
+    <!-- Note Activity -->
+    <dimen name="page_margin">10dp</dimen>
+    <dimen name="image_height">50dp</dimen>
+    <dimen name="title_top_margin">10dp</dimen>
+    <dimen name="title_size">30sp</dimen>
+    <dimen name="progress_height">50dp</dimen>
+
+    <!-- Appbar Note -->
+    <dimen name="button_margin">15dp</dimen>
+    <dimen name="button_size">30dp</dimen>
+
+    <!-- ColorType Layout -->
+    <dimen name="color_padding">15dp</dimen>
+    <dimen name="color_size">60dp</dimen>
+    <dimen name="riv_border_width">2dp</dimen>
+
+    <!-- BottomSheetFragment -->
+    <dimen name="bottomSheet_page_padding">10dp</dimen>
+    <dimen name="line_width">100dp</dimen>
+    <dimen name="line_height">10dp</dimen>
+    <dimen name="cardView_marginTop">30dp</dimen>
+    <dimen name="cardView_width">200dp</dimen>
+    <dimen name="lorem_padding">10dp</dimen>
+    <dimen name="lorem_textSize">30sp</dimen>
+    <dimen name="lorem_width">150dp</dimen>
+    <dimen name="lorem_height">60dp</dimen>
+    <dimen name="recyclerView_marginTop">20dp</dimen>
+
+    <!-- Note Priv Count -->
+    <dimen name="priv_note_page_padding">5dp</dimen>
+    <dimen name="priv_note_cardView_margin">10dp</dimen>
+    <dimen name="priv_note_LinearLayout_padding">15dp</dimen>
+    <dimen name="priv_note_ImageView_size">20dp</dimen>
+    <dimen name="priv_note_noteDate_size">12sp</dimen>
+    <dimen name="priv_note_noteTitle_size">20sp</dimen>
+    <dimen name="priv_note_noteContent_size">16sp</dimen>
+    <dimen name="priv_note_cardView2_size">50dp</dimen>
+    <dimen name="priv_note_cardView2_marginTop">30dp</dimen>
+
+    <!-- Priv Vertical layout -->
+    <dimen name="priv_vertical_title_marginTop">10dp</dimen>
+    <dimen name="priv_vertical_title_marginStart">10dp</dimen>
+    <dimen name="priv_vertical_title_size">25sp</dimen>
+    <dimen name="priv_vertical_recycler_marginTop">10dp</dimen>
+
+    <!-- Priv Vertical layout -->
+
+    <dimen name="select_font_type_page_margin">10dp</dimen>
+    <dimen name="select_font_type_linearLayout_padding">10dp</dimen>
+    <dimen name="select_font_type_text_padding">5dp</dimen>
+</resources>

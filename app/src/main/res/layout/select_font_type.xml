@@ -1,33 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="10dp">
+    android:layout_margin="@dimen/select_font_type_page_margin"
+    android:background="@drawable/font_type_background">
 
     <LinearLayout
-        android:padding="10dp"
+        android:padding="@dimen/select_font_type_linearLayout_padding"
         android:gravity="center"
         android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/font_type_background">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/done"
             android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_done"/>
+            android:src="@drawable/ic_done"
+            android:contentDescription="@string/font_picked" />
 
         <TextView
             android:id="@+id/typeText"
-            android:padding="5dp"
+            android:padding="@dimen/select_font_type_text_padding"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Text Type"
-            android:textColor="@color/white"/>
+            android:hint="@string/fontType"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"/>
 
     </LinearLayout>
 </RelativeLayout>
