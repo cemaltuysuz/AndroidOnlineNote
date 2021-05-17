@@ -41,6 +41,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/loremCard"
         android:layout_marginTop="@dimen/recyclerView_marginTop"
         android:id="@+id/VerticalRecycler"
         android:layout_width="match_parent"

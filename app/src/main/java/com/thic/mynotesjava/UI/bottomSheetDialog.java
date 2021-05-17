@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -60,6 +61,7 @@ public class bottomSheetDialog extends BottomSheetDialogFragment implements Pale
 
         if (state == null) state = new ChooseState(1,2,1);
 
+
         adapter = new VerticalAdapter(getActivity().getApplicationContext(),viewModel.getMultiModelList(),state,this);
     }
 
@@ -68,6 +70,30 @@ public class bottomSheetDialog extends BottomSheetDialogFragment implements Pale
                              Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_bottom_sheet_dialog, container, false);
         Initialize(root);
+
+        if (state != null){
+            for (MultiModel m : viewModel.getMultiModelList() ){
+                for (Object o : m.getItems()){
+                    if (o instanceof TextColorModel){
+                        TextColorModel tc = (TextColorModel) o;
+                        if (state.getTextColorCode() == tc.getTextColorCode()){
+                            lorem.setTextColor(tc.getColor());
+                        }
+                    }else if(o instanceof FontModel){
+                        FontModel fm = (FontModel) o;
+                        if (state.getFontTypeCode() == fm.getFontCode()){
+                            lorem.setTypeface(fm.getFontType());
+                        }
+                    }else {
+                        BackColorModel bm = (BackColorModel) o;
+                        if (state.getBackColorCode() == bm.getBackColorCode()){
+                            cardView.setCardBackgroundColor(bm.getColor());
+                        }
+                    }
+
+                }
+            }
+        }
         return root;
     }
     // TextColor Selected in HorizontalAdapter ->
