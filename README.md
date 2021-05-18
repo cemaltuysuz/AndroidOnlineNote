@@ -1,6 +1,6 @@
 # AndroidOnlineNote-RestApi
 
-![](https://user-images.githubusercontent.com/79871380/118623622-18f9bd00-b7d1-11eb-84ba-34e88ca668e9.png)
+![forGithub2](https://user-images.githubusercontent.com/79871380/118626997-0339c700-b7d4-11eb-8b6e-eed89fed4818.png)
 
 
 ##   Features
@@ -11,5 +11,4 @@
 ##   Schema
 
 
-![forgithub](https://user-images.githubusercontent.com/79871380/118624512-e4d2cc00-b7d1-11eb-8b8a-1a12adb2bc86.png)
-
+![forGithub](https://user-images.githubusercontent.com/79871380/118626893-ec937000-b7d3-11eb-8f7e-74da26396ce3.png)
